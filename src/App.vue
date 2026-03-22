@@ -1,47 +1,22 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue'
+// Importamos nuestros dos nuevos bloques de Lego (componentes)
+import Login from './components/Login.vue'
+import Tienda from './components/Tienda.vue'
+
+// Variable reactiva que rastrea si el usuario ya inició sesión o no
+const estaLogueado = ref(false)
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <Login v-if="!estaLogueado" @ingresar="estaLogueado = true" />
+  
+  <Tienda v-else @salir="estaLogueado = false" />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+<style>
+/* Quitamos el scroll de toda la página para que se comporte como una aplicación de escritorio */
+body {
+  overflow: hidden;
 }
 </style>
