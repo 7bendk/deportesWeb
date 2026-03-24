@@ -20,7 +20,7 @@
       <h4 class="text-success">Total pagado: ${{ ticket.total }}</h4>
 
       <button class="btn btn-primary w-100 mt-3"
-              @click="$router.push('/productos')">
+              @click="volver()">
         Volver a comprar
       </button>
 
@@ -38,6 +38,13 @@ export default {
 
   mounted() {
     this.ticket = JSON.parse(localStorage.getItem('ticket')) || {}
+  },
+  methods: {
+  volver() {
+    this.$router.push('/productos').then(() => {
+      window.location.reload()
+    })
   }
+}
 }
 </script>
