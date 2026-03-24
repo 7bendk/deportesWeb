@@ -51,7 +51,7 @@
 
         <button type="button"
                 class="btn btn-outline-secondary w-100"
-                @click="$router.push('/productos')">
+                @click="volver()">
           Seguir comprando
         </button>
 
@@ -116,6 +116,13 @@ export default {
         this.tarjeta.fecha = v
       }
     },
+
+  volver() {
+    this.$router.push('/productos').then(() => {
+      window.location.reload()
+    })
+  },
+
 
     validar() {
       const num = this.tarjeta.numero.replace(/\s/g, '')
