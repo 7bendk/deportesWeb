@@ -1,22 +1,25 @@
-<script setup>
-import { ref } from 'vue'
-// Importamos nuestros dos nuevos bloques de Lego (componentes)
-import Login from './components/Login.vue'
-import Tienda from './components/Tienda.vue'
-
-// Variable reactiva que rastrea si el usuario ya inició sesión o no
-const estaLogueado = ref(false)
-</script>
-
 <template>
-  <Login v-if="!estaLogueado" @ingresar="estaLogueado = true" />
+  <div>
   
-  <Tienda v-else @salir="estaLogueado = false" />
+    <Navbar v-if="!esLogin" />
+
+    <Carrito v-if="$route.name === 'Productos'" />
+
+    <router-view />
+  </div>
 </template>
 
-<style>
-/* Quitamos el scroll de toda la página para que se comporte como una aplicación de escritorio */
-body {
-  overflow: hidden;
+<script>
+import Navbar from './components/Navbar.vue'
+import Carrito from './components/Carrito.vue'
+
+export default {
+  components: { Navbar, Carrito },
+
+  computed: {
+    esLogin() {
+      return this.$route.path === '/'
+    }
+  }
 }
-</style>
+</script>
